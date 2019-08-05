@@ -1,3 +1,5 @@
-##Тестовое задание на ruby
+# Test task on ruby+rails
 
-Сайт http://94.177.251.38
+Site: http://94.177.251.38
+Task: http://94.177.251.38/task/index
+Comments: http://94.177.251.38/information/note
