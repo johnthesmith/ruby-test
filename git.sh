@@ -18,6 +18,8 @@ if ! [ -d $GIT_PATH'/.git' ]; then
     # Init githup if path not found
     git init;
     git add -A;
+    git config --global user.name "john the smith";
+    git config --global user.email "still@itserv.ru";
     git commit -m "first commit";
     git remote add origin git@github.com:johnthesmith/ruby-test.git
 else
@@ -27,5 +29,5 @@ else
 fi
 
 # guthub push
-git pull origin
+# git pull origin
 git push -u origin master;
