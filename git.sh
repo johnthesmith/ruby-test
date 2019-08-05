@@ -1,0 +1,31 @@
+#**************************************************************************************
+# Create file for ssh auth
+# /root/.ssh/config
+# https://www.keybits.net/post/automatically-use-correct-ssh-key-for-remote-git-repo/
+# File Contain:
+#
+# Host github.com-johnthesmith
+#     HostName github.com
+#     User git
+#     IdentityFile /root/.ssh/github
+#     IdentitiesOnly yes
+#**************************************************************************************
+GIT_PATH='/opt/nginx/app/news/';
+cd $GIT_PATH
+
+## Github
+if ! [ -d $GIT_PATH'/.git' ]; then
+    # Init githup if path not found
+    git init;
+    git add -A;
+    git commit -m "first commit";
+    git remote add origin git@github.com:johnthesmith/ruby-test.git
+else
+    # Init githup if path found
+    git add -A;
+    git commit -m "commit";
+fi
+
+# guthub push
+git pull origin
+git push -u origin master;

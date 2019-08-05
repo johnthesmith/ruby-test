@@ -1,0 +1,72 @@
+// Place all the styles related to the main controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+// Common styles.
+// I must found place for this styles, but i don't know where located that place now.
+
+
+// Reset all margins paddings and other...
+*
+{
+    padding:0;
+    margin:0;
+    border:none;
+}
+
+
+// Restore list padding after *
+li
+{
+    margin-left:2em;
+}
+
+
+
+// Restore pharagraph padding after *
+p
+{
+    padding-bottom:0.5em;
+    padding-top:0.5em;
+}
+
+
+// Top menu in "application.html.slim"
+body .Menu
+{
+    display:flex;
+    background-color:maroon;
+}
+
+
+
+body .Menu a
+{
+    padding:1em;
+    color:white;
+}
+
+
+
+// Content for all frames in "application.html.slim"
+body .Content
+{
+    padding:1em;
+}
+
+
+body .Menu a:hover
+{
+    background-color: red;    
+}
+
+
+
+body .Text
+{
+    background-color: #FFFFAA;
+    border: 1px solid black;
+    padding: 1em;
+    white-space: pre;
+}
