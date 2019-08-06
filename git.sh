@@ -4,11 +4,10 @@
 # https://www.keybits.net/post/automatically-use-correct-ssh-key-for-remote-git-repo/
 # File Contain:
 #
-# Host github.com-johnthesmith
+# Host github.com
 #     HostName github.com
 #     User git
 #     IdentityFile /root/.ssh/github
-#     IdentitiesOnly yes
 #**************************************************************************************
 GIT_PATH='/opt/nginx/app/news/';
 cd $GIT_PATH

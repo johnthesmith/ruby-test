@@ -1,0 +1,72 @@
+// Place all the styles related to the Articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.Articles
+{
+  display:flex;
+  flex-direction: column;
+}
+
+
+
+.Articles .Record
+{
+  padding:1em;
+  padding-left:2em;
+}
+
+
+
+.Articles .Record .Body
+{
+  display:flex; 
+}
+
+
+
+.Articles .Record .Body
+{
+  margin-top:1em;
+  white-space:pre-line;
+  overflow:hidden;
+  font-family: monospace;
+}
+
+
+
+.Articles .Record:nth-child(odd)
+{
+  background-color:#FFCCCC;
+}
+
+
+
+.Articles .Record:nth-child(even)
+{
+  background-color:#FFEEEE;
+}
+
+
+
+.Articles .Record h2
+{
+  display:flex;
+}
+
+
+
+.Articles .Record a
+{
+  margin-right:1em;
+}
+
+
+
+.Show .Body
+{
+  margin-top:1em;
+  white-space:pre-line;
+  overflow:hidden;
+  font-family: monospace;
+}

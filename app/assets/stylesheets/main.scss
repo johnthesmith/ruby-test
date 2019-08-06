@@ -32,11 +32,31 @@ p
 }
 
 
+
+
+input, textarea
+{
+  padding:0.2em 1em 0.2em 1em;
+  border:1px solid #7c7c7c;
+  background-color: #cccccc;
+  margin:0.2em;
+  border-radius:0.2em;
+}
+
+
 // Top menu in "application.html.slim"
 body .Menu
 {
     display:flex;
     background-color:maroon;
+}
+
+
+
+// Content for all frames in "application.html.slim"
+body .Content
+{
+    padding:1em;
 }
 
 
@@ -49,13 +69,6 @@ body .Menu a
 
 
 
-// Content for all frames in "application.html.slim"
-body .Content
-{
-    padding:1em;
-}
-
-
 body .Menu a:hover
 {
     background-color: red;    
@@ -63,10 +76,59 @@ body .Menu a:hover
 
 
 
+body .Menu .Space
+{
+  flex-grow:1;
+}
+
+
+
 body .Text
 {
-    background-color: #FFFFAA;
-    border: 1px solid black;
-    padding: 1em;
-    white-space: pre;
+  background-color: #FFFFAA;
+  border: 1px solid black;
+  padding: 1em;
+  white-space: pre;
+}
+
+
+.notice
+{
+  padding:1em;
+  margin:1em;
+  background-color:#aaffaa;
+  position:fixed;
+  bottom:0;
+  right:0;
+  box-shadow:0 0 1em rgba(0,0,0,0.3);
+  border-radius:1em;
+  border:1px solid #007c00;
+}
+
+
+.notice:empty
+{
+  display:none;
+}
+
+
+
+.alert
+{
+  padding:1em;
+  margin:1em;
+  background-color:#ffaaaa;
+  position:fixed;
+  bottom:0;
+  right:0;
+  box-shadow:0 0 1em rgba(0,0,0,0.3);
+  border-radius:1em;
+  border:1px solid #7c0000;
+}
+
+
+
+.alert:empty
+{
+  display:none;
 }

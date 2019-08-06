@@ -1,0 +1,21 @@
+h1 Новая статья
+
+= form_with scope: :article, url: articles_path, local: true do |form|
+
+  - if @article.errors.any?
+    div
+      = pluralize(@article.errors.count, "ошбика")
+      |  запрещено сохранение статьи::
+      ul
+        - @article.errors.full_messages.each do |msg|
+          li
+            = msg
+
+  div
+    div
+      = form.text_field :title, style:"width:90%;", placeholder:"Заголовок"
+    
+  div
+    = form.text_area :text, placeholder:"Текст статьи", style:"width:90%; height:10em;"
+
+  = form.submit "Сохранить"

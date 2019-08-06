@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
-    # Main page
-    root 'main#index'
-    get 'main/index'
+  devise_for :users
 
-    # Source example for module vendor/swamp/debug.rb    
-    get 'source/index'
+  root 'articles#index'
 
-    # Information and notebook 
-    get 'information/note'
+  # Main page
+  get 'main/index'
 
-    # Task page
-    get 'task/index'
+  # Source example for module vendor/swamp/debug.rb    
+  get 'source/index'
+
+  # Information and notebook 
+  get 'information/note'
+
+  # Task page
+  get 'task/index'
+  
+  resources :articles
 end

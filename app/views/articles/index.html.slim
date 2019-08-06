@@ -1,0 +1,15 @@
+h1 Статьи
+
+.Articles
+  - @articles.each do |article|
+    .Record
+
+      h3
+        = article.title
+
+      .Toolbar
+        = link_to 'редактор', edit_article_path(article)
+        = link_to 'открыть', article_path(article)
+
+      .Body
+        = article.text

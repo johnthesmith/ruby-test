@@ -1,0 +1,8 @@
+.Show
+  h1
+    = @article.title
+
+  = link_to 'Редактор', edit_article_path(@article)
+    
+  .Body
+    = @article.text
