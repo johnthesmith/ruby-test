@@ -1,0 +1,25 @@
+h1 Редактирование профиля
+
+= form_with(model: @user, local: true) do |form|
+
+  - if @user.errors.any?
+    div
+      = pluralize(@user.errors.count, "ошибка")
+      |  запрещено сохранение статьи:
+      ul
+        - @user.errors.full_messages.each do |msg|
+          li
+            = msg
+
+  div
+    | Пользователь: 
+    = @user.email
+    
+  div
+    = form.label :subs, "Рассылка"
+    = form.select(:subs, options_for_select([['Еженедельная', 'week'], ['Ежедневная', 'day'], ['Отключена', 'disable']], @user.subs))
+
+  = form.submit "Сохранить"
+  div
+    = link_to 'Изменить пароль', edit_user_registration_path
+  

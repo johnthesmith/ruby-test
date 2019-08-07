@@ -16,4 +16,8 @@ Rails.application.routes.draw do
   get 'task/index'
   
   resources :articles
+  #resources :users
+  get 'users/editcurrent'
+  get '/users/:id', :to => 'users#editcurrent', :as => :user
+  patch '/users/:id(.:format)', :to => 'users#update'
 end

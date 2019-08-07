@@ -11,14 +11,9 @@ h2
   .field
     = f.label :password, "Пароль"
     = f.password_field :password, autocomplete: "new-password"
-    - if @minimum_password_length
-      em
-        | (минимум
-        = @minimum_password_length
-        |  симв)
-    
+
   .field
-    = f.label :password_confirmation
+    = f.label :password_confirmation, "Проверка"
     = f.password_field :password_confirmation, autocomplete: "new-password"
 
   .actions
