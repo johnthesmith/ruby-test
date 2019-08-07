@@ -62,8 +62,6 @@ module Swamp
       def scan
         fileMasq = @outFolder
 
-        @log.jobBegin.value "Scan file name", fileMasq
-
         if (prepareFolder)
           # Scan files      
           Dir.open(@outFolder).each do |fileName|
@@ -83,7 +81,7 @@ module Swamp
 
                 # Check time
                 if fileMoment<currentMoment
-
+                  @log.jobBegin.text "SendMessage"
                   # Message create and it sent 
                   message = TMessage.new @log
                   filePathName = @outFolder + "/" + fileName
@@ -92,13 +90,13 @@ module Swamp
                   end
                   @log.debug.value "Delete file", filePathName
                   File.delete (filePathName)
+                  @log.jobEnd
                 end
               end
             end
           end
         end
         
-        @log.jobEnd
       end
 
 

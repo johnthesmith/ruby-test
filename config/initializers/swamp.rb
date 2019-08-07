@@ -7,10 +7,12 @@ require_relative Rails.root+'vendor/swamp/sender.rb'
 require_relative Rails.root+'vendor/swamp/message.rb'
 
 module Swamp
+
   # Create log system
   $log = TLog.new
   $log.path = "/tmp/swamp/rails"
-  $log.file = "log.txt"
+  $log.file = "log.txt"  
+  
   $log.open
   $log.info.text "Start rails logger"
 

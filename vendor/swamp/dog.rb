@@ -59,11 +59,13 @@ module Swamp
 
 
   # Main loop
+  log.jobBegin.text "Main loop"
   while !terminated do
     sender.scan    
     # Loop timeout for saving the processor time
     sleep 2
   end
+  log.jobEnd
   
   # Finalize application
   sender.finalize
