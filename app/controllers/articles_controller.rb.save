@@ -42,7 +42,6 @@ class ArticlesController < ApplicationController
   end
 
 
-
   # Update article
   def update   
     $log.jobBegin.text "Update artice"
@@ -71,7 +70,6 @@ class ArticlesController < ApplicationController
   end
 
 
-
   def index
     @articles = Article.all 
   end
@@ -82,7 +80,11 @@ class ArticlesController < ApplicationController
   begin
   
     def send_user(title, body)
+
+      t=Time.now.
+
       t=Time.now
+
       tHour=t.hour
       st=t.strftime("%F")
       t=Time.parse(st+" 07:00:00")

@@ -14,8 +14,12 @@ h1 Редактирование статьи
   div
     = form.label :title, "Наименование"
     = form.text_field :title
+
+  div
+    = form.label :title, "Количество сохранений "
+    = @article.count_edit
     
   div
     = form.text_area :text, placeholder:"Текст статьи", style:"width:90%; height:15em;"
-
+      
   = form.submit "Сохранить"

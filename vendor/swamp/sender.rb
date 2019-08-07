@@ -107,6 +107,21 @@ module Swamp
         return self;
       end
 
+
+
+      def sendMessage(aSubject, aBody, aEmail, aMoment)
+        @log.debug.text("Message will be send").param("Subject", aSubject).param("Moment", aMoment.to_s)
+        message = TMessage.new @log
+        message.clear
+        message.content["guid"] = SecureRandom.uuid
+        message.content["subject"] = aSubject
+        message.content["body"] = aBody
+        message.content["recipient"] = aEmail
+        message.content["moment"] = aMoment.to_f.to_s
+        send message
+      end
+
+
      
       # Finish work with sender
       def finalize

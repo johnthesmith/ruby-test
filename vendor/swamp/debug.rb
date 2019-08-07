@@ -7,6 +7,8 @@
 ##-----------------------------------------------------------------------------
 
 # The module can write log information to file or console.
+# Calculates execution time.
+# Puts trace information
 # Supports colors output.
 
 
@@ -15,9 +17,9 @@
 #        log = TLog.new
 #        log.path="/tmp"
 #        log.file="test.log"
-#        log.jobBegin "Test"
-#        log.debug("Hello").param("param", "value")
-#        log.jobEnd("End").space.text("final text")
+#        log.jobBegin.text "Test"
+#        log.debug.text("Hello").param("param", "value")
+#        log.jobEnd.text("End").space.text("final text")
 #        log.param("Array", [1,2,3,4,5])
 #        log.close
 #    end
@@ -32,6 +34,7 @@ module Swamp
             @file = "log.txt"     # log file name
             @path = "/tmp"        # log file path
             @section = ""         # log file section
+            @colored = true      # color out true or false
 
             @line = false         # Line was begun
             @messageLast = ""     # Message last
@@ -45,16 +48,29 @@ module Swamp
             @fileCallback = nil;
         end
 
+        # Log type
+        LOG_TYPE_INFO = "I"
+        LOG_TYPE_WARNING = "W"
+        LOG_TYPE_BEGIN = ">"
+        LOG_TYPE_END = "<"
+        LOG_TYPE_ERROR = "X"
+        LOG_TYPE_DEBUG = "#" 
+                
+        # Escape colors
+        ESC_INK_DEFAULT  = "\x1b[0m"
+        ESC_INK_BLACK = "\x1b[30m"
+        ESC_INK_RED = "\x1b[31m"
+        ESC_INK_GREEN = "\x1b[32m"
+        ESC_INK_YELLOW = "\x1b[33m"
+        ESC_INK_BLUE = "\x1b[34m"
+        ESC_INK_MAGENTA = "\x1b[35m"
+        ESC_INK_CYAN = "\x1b[36m"
+        ESC_INK_WHITE = "\x1b[37m"
+        ESC_INK_GREY = "\x1b[90m"
 
         ## private declaration
         private
         begin
-            # Colors ESC          
-            @@default = "\x1b[0m"
-            @@red = "\x1b[31m"
-            @@green = "\x1b[32m"
-            @@grey = "\x1b[90m"
-
             # New line begin
             def lineBegin aType
                 @momentCurrent = Time.new.to_f * 1000
@@ -80,14 +96,32 @@ module Swamp
                     end
                                     
                     # write result to log
-                    write @@grey + @traceLine.to_s.ljust(5) + sprintf('%0.3f',delta).rjust(12) + @@default 
-                    write " "+aType+" " + " " * (4 * @depth.count)
+                    color ESC_INK_GREY
+                    write @traceLine.to_s.ljust(5) + sprintf('%0.3f',delta).rjust(12) + " "
+
+                    case aType
+                    when LOG_TYPE_BEGIN
+                      color ESC_INK_BLUE
+                    when LOG_TYPE_END
+                      color ESC_INK_BLUE
+                    when LOG_TYPE_ERROR
+                      color ESC_INK_RED
+                    when LOG_TYPE_INFO
+                      color ESC_INK_CYAN
+                    when LOG_TYPE_WARNING
+                      color ESC_INK_YELLOW
+                    when LOG_TYPE_DEBUG
+                      color ESC_INK_WHITE
+                    end                                  
+                    write aType                    
+                    write " " + " " * (4 * @depth.count)
+                    color ESC_INK_DEFAULT 
 #                end
 
                 # Set params for next calls
                 @line = true
                 @momentLast = @momentCurrent
-#                @messageLast = aMessage
+#               @messageLast = aMessage
                 
                 return self
             end
@@ -101,8 +135,10 @@ module Swamp
             # End of line
             def lineEnd
               @line = false
-              if (@traceFile!="")
-                write @@grey + " ["+@traceFile+"]" + @@default
+              if @traceFile!=""
+                color(ESC_INK_GREY)
+                write("["+@traceFile+"]")
+                color(ESC_INK_DEFAULT)
               end
               write "\n"               
               return self
@@ -155,6 +191,8 @@ module Swamp
             attr_reader :path
             attr_writer :path
 
+            attr_reader :colored
+            attr_writer :colored
 
             # Open log
             def open
@@ -179,10 +217,19 @@ module Swamp
 
             # Write space to log
             def space
-                write " "
-                return self
+              write " "
+              return self
             end
 
+
+
+            def color aColor
+              if @colored
+                write aColor
+              end
+              return self
+            end
+              
 
 
             # Write param to log
@@ -195,28 +242,42 @@ module Swamp
                     #Hash dump
                     jobBegin.text aName + " ("+className+")"
                     aValue.each do |key, value|
-                        debug.text key.to_s + ": " + @@green + value.to_s + @@default
+                        debug.text key.to_s + ": " 
+                        color ESC_INK_GREEN
+                        write value.to_s 
+                        color ESC_INK_DEFAULT
                     end
                     jobEnd.text"End"
                 when "Array"
                     #Arra dump
                     jobBegin.text aName + " ("+className+")"
                     aValue.each_with_index do |value,index|
-                        debug.text index.to_s + ": " + @@green + value.to_s + @@default
+                        debug.text index.to_s + ": " 
+                        color ESC_INK_GREEN 
+                        write value.to_s
+                        color ESC_INK_DEFAULT
                     end
                     jobEnd.text "End"
                 else
                     # All another classes
-                    write "[" + aName + ":" + className + " = " + @@green + aValue.to_s + @@default + "]"
+                    write "[" + aName + ":" + className + " = " 
+                    color ESC_INK_GREEN 
+                    write aValue.to_s 
+                    color ESC_INK_DEFAULT
+                    write "]"
                 end
                 return self
             end
 
 
 
-            # Write param to log
-            def value aName, aValue
-                write aName + " [" + @@green + aValue.to_s + @@default + "]"
+            # Write value to log
+            def value aCaption, aValue
+                write aCaption + " ["
+                color ESC_INK_GREEN 
+                write aValue.to_s 
+                color ESC_INK_DEFAULT
+                write "]"
                 return self
             end
 
@@ -230,15 +291,15 @@ module Swamp
 
             # Debug messeges
             def debug
-                lineBegin @@grey+"#"+@@default
-                return self
+              lineBegin LOG_TYPE_DEBUG
+              return self
             end
 
 
 
             # Information messeges
             def info
-                lineBegin @@green+"i"+@@default
+                lineBegin LOG_TYPE_INFO
                 return self
             end
 
@@ -246,7 +307,7 @@ module Swamp
 
             # Warning messeges without loosing data
             def warning
-                lineBegin "!"
+                lineBegin LOG_TYPE_WARNING
                 return self
             end
 
@@ -254,15 +315,15 @@ module Swamp
 
             # Critical errors with loosing data
             def error
-                lineBegin @@red+"X"+@@default
-                return self
+              lineBegin LOG_TYPE_ERROR
+              return self
             end
 
 
 
             # Job begin
             def jobBegin              
-                lineBegin ">"
+                lineBegin LOG_TYPE_BEGIN
                 # Store moment to stack
                 @depth.push @momentCurrent
                 return self
@@ -274,11 +335,13 @@ module Swamp
             def jobEnd
 
                 if @depth.count>0 then job = @depth.pop end
-                lineBegin "<"
+                lineBegin LOG_TYPE_END
                 delta = @momentCurrent - job
                 
                 if delta != 0
+                    color(ESC_INK_GREY)
                     write sprintf('%0.3f ms', delta)
+                    color(ESC_INK_DEFAULT)
                 end
                
                 return self

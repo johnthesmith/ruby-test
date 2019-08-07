@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_183043) do
+ActiveRecord::Schema.define(version: 2019_08_07_123553) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "count_edit", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
