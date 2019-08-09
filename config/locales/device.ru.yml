@@ -1,6 +1,15 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-en:
+ru:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Email пустой."  
+            password:
+              blank: "Пароль пустой."  
   devise:
     confirmations:
       confirmed: "Ваш адрес почты был успешно подтвержден."
@@ -61,5 +70,5 @@ en:
       not_found: "отсутсвует"
       not_locked: "без блокировки"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "Ошибка %{resource}:"
+        other: "%{count} ошибки:"

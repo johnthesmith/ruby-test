@@ -1,10 +1,7 @@
-# Да я знаю что сообщения надо убрать в локаль. Разбираюсь как это сделать!
-
 class ArticlesController < ApplicationController
   include Swamp
 
   before_action :authenticate_user!, only: [:create, :update, :destroy, :new, :edit]
-
 
   # Load form new message
   def new
@@ -53,7 +50,7 @@ class ArticlesController < ApplicationController
     countEdit=@article.count_edit+1
 
     if (countEdit > maxCountEdit)
-      redirect_to request.referrer, :alert => "TASK 2.3 Запрет редактирования более " + maxCountEdit.to_s      
+      redirect_to request.referrer, :alert => I18n.t('article.countEditError', countEdit:  maxCountEdit.to_s)  
       $log.warning.text "Excess number of edits"
     else
       if @article.update(article_params.merge(count_edit: countEdit))
@@ -122,7 +119,8 @@ class ArticlesController < ApplicationController
     
     def authenticate_user!
       # this message i must move to external model but i to not know that place
-      msgAlert="Нужны права администратора."
+      msgAlert = I18n.t('article.needAdminRight')  
+
       if (!current_user || current_user.role!="admin")
         if (request.referrer)
           redirect_to request.referrer, :alert => msgAlert      
@@ -133,7 +131,6 @@ class ArticlesController < ApplicationController
     end
 
 
-    
   end
   
 end

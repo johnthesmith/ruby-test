@@ -1,0 +1,4 @@
+ru:
+  article:
+    countEditError: "TASK 2.3 Запрет редактирования более %{countEdit}."
+    needAdminRight: "Необходимы права администратора."
